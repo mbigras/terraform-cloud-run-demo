@@ -13,12 +13,17 @@
 # limitations under the License.
 
 provider "google" {
-  project = "sethvargo-gcloud-secrets"
+  project = "playfulpanda"
 }
 
-resource "google_project_service" "run" {
-  service = "run.googleapis.com"
-}
+# Enable the run.googleapis.com API while initializing with make init
+# instead of using the google_project_service terraform resource
+# to prevent destroying it, when running make destroy
+# See this issue for more details:
+# https://github.com/hashicorp/terraform/issues/2253
+# resource "google_project_service" "run" {
+#   service = "run.googleapis.com"
+# }
 
 resource "google_cloud_run_service" "my-service" {
   name     = "my-service"
@@ -37,7 +42,9 @@ resource "google_cloud_run_service" "my-service" {
     latest_revision = true
   }
 
-  depends_on = [google_project_service.run]
+  # Enable the run.googleapis.com API while initializing
+  # with make init see comment above
+  # depends_on = [google_project_service.run]
 }
 
 resource "google_cloud_run_service_iam_member" "allUsers" {
