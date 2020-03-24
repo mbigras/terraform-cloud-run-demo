@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+variable "project" {
+  type = string
+}
+
 provider "google" {
-  project = "playfulpanda"
+  project = var.project
 }
 
 # Enable the run.googleapis.com API while initializing with make init

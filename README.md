@@ -36,6 +36,7 @@ The demo is driven using make targets:
 ```
 git clone https://github.com/mbigras/terraform-cloud-run-demo
 cd terraform-cloud-run-demo
+export TF_VAR_project=<YOUR PROJECT>
 make deps
 make init
 make plan
